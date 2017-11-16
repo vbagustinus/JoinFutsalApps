@@ -1,0 +1,30 @@
+{
+  "name": "joinapps",
+  "version": "1.0.0",
+  "description": "Apps using 3rd party API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbagustinus/JoinFutsalApps.git"
+  },
+  "author": "Nizar & Zuhri & Agustinus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vbagustinus/JoinFutsalApps/issues"
+  },
+  "homepage": "https://github.com/vbagustinus/JoinFutsalApps#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "fb": "^2.0.0",
+    "morgan": "^1.9.0",
+    "oauth": "^0.9.15"
+  }
+}
