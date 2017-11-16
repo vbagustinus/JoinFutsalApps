@@ -1,8 +1,13 @@
+// require libraries
 const app = require('express')();
 const bodyParser = require('body-parser')
 const logger = require('morgan');
-const index = require('./routes/index');
 const cors = require('cors')
+
+// require routes
+const index = require('./routes/index');
+const users = require('./routes/users');
+const events = require('./routes/events');
 
 app.use(cors())
 app.use(logger('dev'));
@@ -17,8 +22,10 @@ app.use(bodyParser.json())
 //     next();
 // });
 
-//route
+// routes
 app.use('/', index);
+app.use('/users', users);
+app.use('/events', events);
 
 app.listen(3000,(err)=>{
   if(!err){
