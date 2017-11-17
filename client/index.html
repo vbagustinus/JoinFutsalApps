@@ -22,6 +22,7 @@
     <!-- style -->
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.common.min.css"/>
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.mobile.all.min.css"/>
+    <script src="assets/js/client.js"></script>
     <style media="screen">
       .k-picker-wrap {
         border: none!important;
@@ -205,7 +206,7 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h2 class="text-center">Keep in touch?</h2>
-                            <form class="contact-form">
+                            <form>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Name Plan</label>
@@ -214,11 +215,11 @@
                                     <div class="col-md-6">
 
                                         <label>Time</label><br/>
-                                        <input  name="date" class="form-control" id="dateTimePicker">
+                                        <input  name="event_date" class="form-control" id="dateTimePicker">
                                     </div>
                                 </div>
-                                <br/>
-                                <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-md-6">
                                     <label>Location</label>
                                       <input id="pac-input" class="form-control" type="text" placeholder="Search Place">
                                       <div id="map" style="width: 100%; height: 300px; display: block;"></div>
@@ -228,17 +229,19 @@
                                       <script type="text/javascript">
                                       function getdataPlace(data){
                                         let allData = `
-                                          <input id="lokasi" name="location" class="form-control" value="${data.url}" type="text" >
+                                          <input id="lokasi" name="event_location" class="form-control" value="${data.url}" type="text" >
                                         `
                                         $("#lokasi").append(allData);
                                         console.log('====================',data.url);
                                       }
                                       </script>
+                                  </div>
                                 </div>
-                                <br/>
-                                <label>Status</label>
+                                <div class="row">
+                                <label>Deskripsi</label>
                                 <textarea class="form-control" name="event_desc" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
                                 <br/>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4">
                                         <button class="btn btn-danger btn-block btn-fill">Post</button>
@@ -373,6 +376,18 @@
             }
         }
     });
+
+    $("form").submit(function(){
+        alert("Submitted");
+        let inputEvent = {
+          event_name  : $('input[name="event_name"]').val(),
+          event_time  : $('input[name="event_date"]').val(),
+          event_location : $('input[name="event_location"]').val(),
+          event_desc : $('input[name="event_dec"]').val()
+        }
+        createEvent(inputEvent)
+    });
+
 </script>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChVxM3pdzcP001Q04yU7-BzBUG-XUox3o&libraries=places&callback=initAutocomplete"
@@ -388,7 +403,6 @@
 	<script src="assets/js/ct-paper-radio.js"></script>
 	<script src="assets/js/bootstrap-select.js"></script>
 	<script src="assets/js/bootstrap-datepicker.js"></script>
-
 	<script src="assets/js/ct-paper.js"></script>
 
 </html>
