@@ -8,18 +8,19 @@ const findAll = (req, res) => {
 }
 
 const create = (req, res) => {
-  let obj = {
-    creator: req.body.creator,
-    event_name: req.body.event_name,
-    event_desc: req.body.event_desc,
-    location: req.body.location,
-    date: new Date(req.body.date),
+  let dataEvent = req.body.event
+  let objEvent = {
+    creator: dataEvent.creator || null,
+    event_name: dataEvent.event_name,
+    event_desc: dataEvent.event_desc,
+    location: dataEvent.location,
+    date: new Date(dataEvent.date),
     createdAt: new Date(),
     updateAt: null,
-    member: req.body.member
+    member: dataEvent.member || null
   }
-
-  Event.create(obj)
+  console.log(objEvent);
+  Event.create(objEvent)
   .then(dataEvent => res.send(dataEvent)) //ngga bisa pke nama event
   .catch(err => res.status(500).send(err))
 }
@@ -51,24 +52,9 @@ const destroy = (req, res) => {
   .catch(err => res.status(500).send(err))
 }
 
-const join = (req, res) => {
-  let id = {_id: ObjectId(req.params.id)}
-
-  Event.findById(id)
-  .then(dataEvent => {
-    dataEvent.member.push(req.body.member)
-
-    dataEvent.save()
-    .then(dataEvent => {res.send(dataEvent)})
-    .catch(err => res.status(500).send(err))
-  })
-  .catch(err => res.status(500).send(err))
-}
-
 module.exports = {
   findAll,
   create,
   update,
-  destroy,
-  join
+  destroy
 };
