@@ -22,6 +22,7 @@
     <!-- style -->
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.common.min.css"/>
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.mobile.all.min.css"/>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="assets/js/client.js"></script>
     <style media="screen">
       .k-picker-wrap {
@@ -377,16 +378,17 @@
         }
     });
 
-    $("form").submit(function(){
-        alert("Submitted");
-        let inputEvent = {
-          event_name  : $('input[name="event_name"]').val(),
-          event_time  : $('input[name="event_date"]').val(),
-          event_location : $('input[name="event_location"]').val(),
-          event_desc : $('input[name="event_dec"]').val()
-        }
-        createEvent(inputEvent)
-    });
+		$("form").submit(function(){
+		    let inputEvent = {
+		      event_name  : $('input[name="event_name"]').val(),
+		      event_desc : $('textarea[name="event_desc"]').val(),
+		      date  : $('input[name="event_date"]').val(),
+		      location : $('input[name="event_location"]').val(),
+		    }
+		    console.log(inputEvent);
+		    // alert("Submit");
+		    createEvent(inputEvent)
+		});
 
 </script>
 </body>

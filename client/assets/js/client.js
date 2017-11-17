@@ -91,9 +91,10 @@ function getTimeline(){
   .catch(err => console.log(err))
 }
 
-function createEvent(event){
-  axios.post('http://localhost:3000/event', {
-    event : event
+function createEvent(dataEvent){
+  // console.log(event);
+  axios.post('http://localhost:3000/events', {
+    event : dataEvent
   })
   .then(function (response) {
     console.log(response);
