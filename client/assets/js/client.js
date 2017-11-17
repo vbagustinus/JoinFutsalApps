@@ -116,3 +116,16 @@ function getTimeline(){
   })
   .catch(err => console.log(err))
 }
+
+function createEvent(dataEvent){
+  
+  axios.post('http://localhost:3000/events', {
+    event : dataEvent
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
