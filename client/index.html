@@ -13,7 +13,8 @@
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/ct-paper.css" rel="stylesheet"/>
     <link href="assets/css/demo.css" rel="stylesheet" />
-
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
@@ -182,7 +183,9 @@
     <div class="collapse navbar-collapse" id="navigation-example-2">
       <ul class="nav navbar-nav navbar-right">
           <li>
-            <button onclick="outFb()" class="btn btn-danger btn-fill">Logout</button>
+
+            <button id="loginButtonDiv" onclick="outFb()" class="btn btn-danger btn-fill">Logout</button>
+            <button id="loginButtonDiv" onclick="FBLogin()" class="btn btn-danger btn-fill">Login</button>
           </li>
        </ul>
     </div><!-- /.navbar-collapse -->

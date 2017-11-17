@@ -58,6 +58,8 @@ function FBLogin () {
       console.log('RESPONE------- ',resStatus,'=====',response)
       if (resStatus.status === 'connected') {
         localStorage.setItem('fbaccesstoken', resStatus.authResponse.accessToken)
+        $("#loginButtonDiv").hide();
+        $("#logoutButtonDiv").show();
         getTimeline()
       } else {
         window.location = "http://localhost:8080/login.html";
@@ -69,11 +71,26 @@ function FBLogin () {
 }
 // FB logout
 function outFb() {
-  FB.logout(function(response) {
-      // Person is now logged out
-      console.log('------',response);
-      window.location = "http://localhost:8080/login.html";
-  });
+  FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                FB.logout(function(response) {
+                    // this part just clears the $_SESSION var
+                    // replace with your own code
+                    $("#loginButtonDiv").show();
+                    $("#logoutButtonDiv").hide();
+                    window.location = "http://localhost:8080/login.html";
+                    // $.post("/logout").done(function() {
+                    //     $('#status').html('<p>Logged out.</p>');
+                    // });
+                });
+            }
+        });
+  // FB.logout(function(response) {
+  //     // Person is now logged out
+  //     // FB.Auth.setAuthResponse(null, 'unknown');
+  //     console.log('------',response);
+  //
+  // });
 }
 
 // Load the SDK asynchronously
@@ -87,14 +104,14 @@ function outFb() {
 
 function getTimeline(){
   console.log('tuturu')
-  window.location = "http://localhost:8080/";
+  // window.location = "http://localhost:8080/";
   axios.get('http://localhost:3000/login', {
     headers: {
       accesstoken: localStorage.getItem('fbaccesstoken')
     }
   })
   .then(response => {
-    console.log('=======',response)
+    console.log('APA yang di bawa',response)
 
   })
   .catch(err => console.log(err))
