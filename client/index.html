@@ -115,7 +115,7 @@
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
-            console.log(place);
+            getdataPlace(place)
             if (!place.geometry) {
               console.log("Returned place contains no geometry");
               return;
@@ -153,6 +153,7 @@
       <script src="https://kendo.cdn.telerik.com/2017.3.1026/js/kendo.all.min.js"></script>
 </head>
 <body>
+
 <nav class="navbar navbar-ct-transparent" role="navigation-demo" id="demo-navbar">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -163,6 +164,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
       <a href="">
            <div class="logo-container">
                 <div class="logo">
@@ -188,6 +190,7 @@
 
 
 <div class="wrapper">
+
     <div class="demo-header">
       <div class="motto">
           <h2 class="title">Join Futsal Apps</h2>
@@ -206,28 +209,41 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Name Plan</label>
-                                        <input class="form-control" placeholder="Name Plan">
+                                        <input name="event_name" class="form-control" placeholder="Name Plan">
                                     </div>
                                     <div class="col-md-6">
 
                                         <label>Time</label><br/>
-                                        <input  class="form-control" id="dateTimePicker">
+                                        <input  name="date" class="form-control" id="dateTimePicker">
                                     </div>
                                 </div>
                                 <br/>
-                                        <label>Location</label>
-                                        <br/>
-                                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                                        <br/>
+                                <div class="col-md-6">
+                                    <label>Location</label>
+                                      <input id="pac-input" class="form-control" type="text" placeholder="Search Place">
+                                      <div id="map" style="width: 100%; height: 300px; display: block;"></div>
+                                      <div id="lokasi">
+
+                                      </div>
+                                      <script type="text/javascript">
+                                      function getdataPlace(data){
+                                        let allData = `
+                                          <input id="lokasi" name="location" class="form-control" value="${data.url}" type="text" >
+                                        `
+                                        $("#lokasi").append(allData);
+                                        console.log('====================',data.url);
+                                      }
+                                      </script>
+                                </div>
                                 <br/>
-                                <!-- <label>Status</label>
-                                <textarea class="form-control" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
+                                <label>Status</label>
+                                <textarea class="form-control" name="event_desc" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
                                 <br/>
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4">
                                         <button class="btn btn-danger btn-block btn-fill">Post</button>
                                     </div>
-                                </div> -->
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -313,8 +329,9 @@
 
             </div>
     </div>
+
 </div>
-<div id="map"></div>
+
 <!-- <div id="map"></div> -->
 <div class="wrapper">
     <footer class="footer-demo section-dark">
