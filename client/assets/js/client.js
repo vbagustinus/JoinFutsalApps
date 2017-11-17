@@ -103,3 +103,16 @@ function createEvent(dataEvent){
     console.log(error);
   });
 }
+
+function joinEvent(id){
+  let member = '12345'
+  axios.put(`http://localhost:3000/events/${id}/join`, {
+    eventMember : member 
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  }); 
+}

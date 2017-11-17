@@ -52,9 +52,26 @@ const destroy = (req, res) => {
   .catch(err => res.status(500).send(err))
 }
 
+const join = (req, res) => {
+  
+  let id = {_id: ObjectId(req.params.id)}
+
+  Event.findById(id)
+  .then(dataEvent => {
+    // res.send(dataEvent)
+    dataEvent.member.push(ObjectId(req.body.eventMember))
+    // console.log(dataEvent);
+    dataEvent.save()
+    .then(dataEvent => res.send(dataEvent))
+    .catch(err => res.status(500).send())
+  })
+  .catch(err => res.status(500).send(err))
+}
+
 module.exports = {
   findAll,
   create,
   update,
-  destroy
+  destroy,
+  join
 };
