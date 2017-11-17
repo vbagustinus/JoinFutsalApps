@@ -71,7 +71,6 @@
     <div class="collapse navbar-collapse" id="navigation-example-2">
       <ul class="nav navbar-nav navbar-right">
           <li>
-
             <button id="loginButtonDiv" onclick="outFb()" class="btn btn-danger btn-fill">Logout</button>
           </li>
        </ul>
@@ -95,93 +94,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
+                          <div class="form-group">
                             <h2 class="text-center">Keep in touch?</h2>
                             <div class="col-md-6" id="newEvent">
                             </div>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
         <!-- end buttons div -->
 
-            <div id="inputs">
-                <div class="tim-title">
-                    <h3>Inputs</h3>
-                </div>
-
-                 <div class="row">
-                        <div class="col-sm-3">
-                      <div class="form-group">
-                        <input type="text" value="" placeholder="Inactive" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="form-group has-success">
-                        <input type="text" value="Success" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="form-group has-error has-feedback">
-                        <input type="text" value="Error" class="form-control" />
-                        <span class="fa fa-times form-control-feedback"></span>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                      <div class="input-group">
-                      <!--     Since the css properties cannot check the previous sibling of an element and for the design consistency we recommend to use the "input-group-addon" after the "form-control" like in this example -->
-                          <input type="text" value="Group Addon" class="form-control">
-                          <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                        </div>
-                    </div>
-                  </div> <!-- end row -->
-            </div><!--  end inputs -->
 
          </div>
         </div>
     </div>
 
-    <div class="section section-light-blue">
-            <div class="container">
-                <div id="menu-dropdown">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="tim-title">
-                            <h3>Menu</h3>
-                        </div>
-                        <br>
-
-                        <div id="navbar">
-                            <nav class="navbar navbar-default">
-                              <div class="container-fluid">
-                              </div><!-- /.container-fluid -->
-                            </nav>
-
-                        </div><!--  end navbar -->
-
-                    </div>
-                    <div class="col-md-6">
-                    </div>
-                </div> <!-- end row -->
-
-                <div class="tim-title">
-                    <h3>Dropdown</h3>
-                    <br />
-                        <div id="navbar-dropdown">
-                            <nav class="navbar navbar-default">
-                              <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                </div>
-                              </div><!-- /.container-fluid -->
-                            </nav>
-
-                        </div><!--  end navbar -->
-                </div>
-            </div> <!-- end menu-dropdown -->
-
-            </div>
-    </div>
 
 </div>
 
@@ -191,26 +119,15 @@
     <div class="container">
         <nav class="pull-left">
             <ul>
+                <li>
+                    <a href="">
 
-                <li>
-                    <a href="http://www.creative-tim.com">
-                        Creative Tim
-                    </a>
-                </li>
-                <li>
-                    <a href="http://blog.creative-tim.com">
-                       Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.creative-tim.com/product/rubik">
-                        Licenses
                     </a>
                 </li>
             </ul>
         </nav>
         <div class="copyright pull-right">
-            &copy; 2015, made with <i class="fa fa-heart heart"></i> by Creative Tim
+            &copy; 2017, made with <i class="fa fa-heart heart"></i> by Creative Tim Nizah Zuhri
         </div>
     </div>
 </footer>
@@ -223,14 +140,15 @@ $( document ).ready(function() {
         data.forEach(dataEvent => {
           $("#newEvent").append(`
             <label>Name Event</label>
-            <h3>${dataEvent.event_name}</h3>
+            <h3 class="title">${dataEvent.event_name}</h3>
             <label>Deskripsi</label>
             <p>${dataEvent.event_desc}</p>
             <label>Link Lokasi</label><br/>
-            <a href="${dataEvent.location}">${dataEvent.location}</a><br/>
+            <a target="_blank" href="${dataEvent.location}">${dataEvent.location}</a><br/><br/>
             <label>Member Event</label>
             <div id="member"></div>
-            <button onclick="joinEvent('${dataEvent._id}')">Join</button>
+            <button class="btn btn-danger btn-fill" onclick="joinEvent('${dataEvent._id}')">Join</button>
+            <hr>
             `)
         })
 

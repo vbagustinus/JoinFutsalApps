@@ -125,12 +125,12 @@ function createEvent(dataEvent){
   axios.post('http://localhost:3000/events', {
     event : dataEvent,
     headers :{
-      jwttoken: localStorage.getItem('tokenJwt'),
-      accesstoken: localStorage.getItem('fbaccesstoken')
+      jwttoken: localStorage.getItem('tokenJwt')
     }
   })
   .then(function (response) {
     console.log('ini RESPON',response);
+    window.location = "http://localhost:8080/event.html";
     res.send(response)
   })
   .catch(function (error) {
@@ -141,12 +141,12 @@ function createEvent(dataEvent){
 function joinEvent(id){
   let member = '5a0e8332829c8517c06132a6'
   axios.put(`http://localhost:3000/events/${id}/join`, {
-    eventMember : member 
+    eventMember : member
   })
   .then(function (response) {
     console.log(response);
   })
   .catch(function (error) {
     console.log(error);
-  }); 
+  });
 }
