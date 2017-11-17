@@ -55,12 +55,13 @@ FB.init({
 function FBLogin () {
   FB.login(function(response) {
     FB.getLoginStatus(function(resStatus){
-      console.log('RESPONE------- ',resStatus,'=====',response)
+      // console.log('RESPONE------- ',resStatus,'=====',response)
       if (resStatus.status === 'connected') {
         localStorage.setItem('fbaccesstoken', resStatus.authResponse.accessToken)
-        $("#loginButtonDiv").hide();
+        // localStorage.setItem('fbaccesstoken', resStatus.authResponse.accessToken)
+        // $("#loginButtonDiv").hide();
         $("#logoutButtonDiv").show();
-        getTimeline()
+        getLogin(resStatus.authResponse.accessToken)
       } else {
         window.location = "http://localhost:8080/login.html";
         console.log('User cancelled login or did not fully authorize.');
@@ -76,8 +77,8 @@ function outFb() {
                 FB.logout(function(response) {
                     // this part just clears the $_SESSION var
                     // replace with your own code
-                    $("#loginButtonDiv").show();
-                    $("#logoutButtonDiv").hide();
+                    // $("#loginButtonDiv").show();
+                    // $("#logoutButtonDiv").hide();
                     window.location = "http://localhost:8080/login.html";
                     // $.post("/logout").done(function() {
                     //     $('#status').html('<p>Logged out.</p>');
@@ -102,28 +103,35 @@ function outFb() {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-function getTimeline(){
+function getLogin(tokenfb){
   console.log('tuturu')
-  // window.location = "http://localhost:8080/";
+
   axios.get('http://localhost:3000/login', {
     headers: {
-      accesstoken: localStorage.getItem('fbaccesstoken')
+      accesstoken: tokenfb
     }
   })
   .then(response => {
-    console.log('APA yang di bawa',response)
+    // console.log('APA yang di bawa',response.data.tokenJwt)
+    localStorage.setItem('tokenJwt', response.data.tokenJwt)
+    window.location = "http://localhost:8080/";
 
   })
   .catch(err => console.log(err))
 }
 
 function createEvent(dataEvent){
-  
+
   axios.post('http://localhost:3000/events', {
-    event : dataEvent
+    event : dataEvent,
+    headers :{
+      jwttoken: localStorage.getItem('tokenJwt'),
+      accesstoken: localStorage.getItem('fbaccesstoken')
+    }
   })
   .then(function (response) {
-    console.log(response);
+    console.log('ini RESPON',response);
+    res.send(response)
   })
   .catch(function (error) {
     console.log(error);

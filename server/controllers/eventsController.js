@@ -1,6 +1,15 @@
 const Event = require('../models/eventModel')
 const ObjectId = require('mongodb').ObjectId
+// const short = require('../middlewares/shortUrl')
+const FB = require('fb');
+const GoogleURL = require( 'google-url' );
+googleUrl = new GoogleURL( { key: 'AIzaSyDbNqAiqdRZT-n5EeTC79O4nQUZLpt1ggc' });
 
+const fb = new FB.Facebook({version: 'v2.8'});
+const setAccessToken = (req, res, next) => {
+  FB.setAccessToken(req.headers.accesstoken);
+  next()
+}
 const findAll = (req, res) => {
   Event.find().populate(['creator', 'member'])
   .then(events => res.send(events))
@@ -8,21 +17,34 @@ const findAll = (req, res) => {
 }
 
 const create = (req, res) => {
-  let dataEvent = req.body.event
-  let objEvent = {
-    creator: dataEvent.creator || null,
-    event_name: dataEvent.event_name,
-    event_desc: dataEvent.event_desc,
-    location: dataEvent.location,
-    date: new Date(dataEvent.date),
-    createdAt: new Date(),
-    updateAt: null,
-    member: dataEvent.member || null
-  }
-  console.log(objEvent);
-  Event.create(objEvent)
-  .then(dataEvent => res.send(dataEvent)) //ngga bisa pke nama event
-  .catch(err => res.status(500).send(err))
+  // return new Promise(function(resolve, reject) {
+    let dataEvent = req.body.event
+    let lokasi = dataEvent.location
+    console.log('))))))))))))))))))',dataEvent);
+    googleUrl.shorten( lokasi, function( err, Url ) {
+     if(!err){
+       let objEvent = {
+         creator: dataEvent.creator || null,
+         event_name: dataEvent.event_name,
+         event_desc: dataEvent.event_desc,
+         location: Url,
+         date: new Date(dataEvent.date),
+         createdAt: new Date(),
+         updateAt: null,
+         member: dataEvent.member || null
+       }
+       // console.log(objEvent);
+       Event.create(objEvent)
+       .then(newdataEvent => {
+         console.log('))))))))))))))))))',newdataEvent);
+         res.send(newdataEvent)
+       }) //ngga bisa pke nama event
+       .catch(err => res.send(err))
+     } else {
+       console.log(err);
+     }
+    });
+  // });
 }
 
 const update = (req, res) => {
