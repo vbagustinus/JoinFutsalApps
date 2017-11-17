@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const ObjectId = require('mongodb').ObjectId
+var jwt = require('jsonwebtoken');
 
 const findAll = (req, res) => {
   User.find()
@@ -8,18 +9,69 @@ const findAll = (req, res) => {
 }
 
 const create = (req, res) => {
-  let obj = {
-    name: req.body.name,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    gender: req.body.gender,
-    photo_profile: req.body.photo_profile
-  }
-
-  User.create(obj)
-  .then((user) => res.send(user))
-  .catch(err => res.status(500).send(err))
+  // console.log(req.picture.data.url);
+  return new Promise(function(resolve, reject) {
+    User.findOne({
+      where: {
+        email: req.email
+      }
+    })
+    .then(user => {
+      if(!user) {
+        let email = `${Math.random().toString(36).substr(2, 5)}@mail.com`
+        let obj = {
+          name: req.name,
+          first_name: req.first_name,
+          last_name: req.last_name,
+          email: email,
+          gender: req.gender,
+          photo_profile: req.picture.data.url
+        }
+        User.create(obj)
+        .then((user) => {
+          jwt.sign(
+          {
+            id: user._id,
+            name: user.name,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            gender: user.gender,
+            photo_profile: user.photo_profile
+          }, 'estehpurun',(err, token) => {
+            if(!err){
+              console.log('==>>>>>>>>>>>>>>====',token);
+              resolve(token)
+            } else{
+              reject(err)
+            }
+          });
+        })
+        .catch(err => console.log(err))
+      } else {
+        jwt.sign(
+        {
+          id: user._id,
+          name: user.name,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          gender: user.gender,
+          photo_profile: user.photo_profile
+        }, 'estehpurun',(err, token) => {
+          if(!err){
+            console.log('==>>>>>>>>>>>>>>====',token);
+            resolve(token)
+          } else{
+            reject(err)
+          }
+        });
+      }
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  });
 }
 
 const update = (req, res) => {

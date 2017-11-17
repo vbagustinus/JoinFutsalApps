@@ -8,6 +8,7 @@ const cors = require('cors')
 const index = require('./routes/index');
 const users = require('./routes/users');
 const events = require('./routes/events');
+const login = require('./routes/login');
 
 app.use(cors())
 app.use(logger('dev'));
@@ -23,6 +24,7 @@ app.use(bodyParser.json())
 // });
 
 // routes
+app.use('/login', login);
 app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
