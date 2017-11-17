@@ -60,11 +60,20 @@ function FBLogin () {
         localStorage.setItem('fbaccesstoken', resStatus.authResponse.accessToken)
         getTimeline()
       } else {
+        window.location = "http://localhost:8080/login.html";
         console.log('User cancelled login or did not fully authorize.');
       }
     })
 
   }, {scope: 'public_profile,email,user_photos,publish_actions,user_posts'});
+}
+// FB logout
+function outFb() {
+  FB.logout(function(response) {
+      // Person is now logged out
+      console.log('------',response);
+      window.location = "http://localhost:8080/login.html";
+  });
 }
 
 // Load the SDK asynchronously
@@ -78,7 +87,7 @@ function FBLogin () {
 
 function getTimeline(){
   console.log('tuturu')
-  // window.location = "http://localhost:8080/";
+  window.location = "http://localhost:8080/";
   axios.get('http://localhost:3000/login', {
     headers: {
       accesstoken: localStorage.getItem('fbaccesstoken')
