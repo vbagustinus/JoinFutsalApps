@@ -92,7 +92,7 @@ function getTimeline(){
 }
 
 function createEvent(dataEvent){
-  // console.log(event);
+  
   axios.post('http://localhost:3000/events', {
     event : dataEvent
   })
