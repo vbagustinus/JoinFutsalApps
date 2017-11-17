@@ -9,7 +9,7 @@ const eventSchema = new Schema({
   },
   event_name:  String,
   event_desc: String,
-  location:   String,
+  location: String,
   date: Date,
   createdAt: Date,
   updateAt: Date,
