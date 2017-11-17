@@ -229,8 +229,20 @@ $( document ).ready(function() {
             <p>${dataEvent.event_desc}</p>
             <label>Link Lokasi</label><br/>
             <a href="${dataEvent.location}">${dataEvent.location}</a><br/>
+            <label>Member Event</label>
+            <div id="member"></div>
             <button onclick="joinEvent('${dataEvent._id}')">Join</button>
+            `) 
+        })
+
+        data.forEach(dataEvent => {
+         dataEvent.member.forEach(member => {
+          console.log(member);
+          $("#member").append(`
+            <p>${member.name}</p>
+            <br/>
             `)
+         }) 
         })
       }
     })

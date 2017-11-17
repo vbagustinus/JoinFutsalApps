@@ -17,7 +17,7 @@ const create = (req, res) => {
     date: new Date(dataEvent.date),
     createdAt: new Date(),
     updateAt: null,
-    member: dataEvent.member || null
+    member: []
   }
   console.log(objEvent);
   Event.create(objEvent)
@@ -53,14 +53,13 @@ const destroy = (req, res) => {
 }
 
 const join = (req, res) => {
-  
-  let id = {_id: ObjectId(req.params.id)}
 
+  let id = {_id: ObjectId(req.params.id)}
   Event.findById(id)
   .then(dataEvent => {
-    // res.send(dataEvent)
+    console.log(dataEvent)
     dataEvent.member.push(ObjectId(req.body.eventMember))
-    // console.log(dataEvent);
+    console.log(dataEvent);
     dataEvent.save()
     .then(dataEvent => res.send(dataEvent))
     .catch(err => res.status(500).send())

@@ -105,7 +105,7 @@ function createEvent(dataEvent){
 }
 
 function joinEvent(id){
-  let member = '12345'
+  let member = '5a0e8332829c8517c06132a6'
   axios.put(`http://localhost:3000/events/${id}/join`, {
     eventMember : member 
   })
