@@ -18,7 +18,13 @@ const create = (req, res) => {
     })
     .then(user => {
       if(!user) {
-        let email = `${Math.random().toString(36).substr(2, 5)}@mail.com`
+        let email
+        if(!user.email){
+          email = `${Math.random().toString(36).substr(2, 5)}@mail.com`
+        } else {
+          email = user.email
+        }
+
         let obj = {
           name: req.name,
           first_name: req.first_name,
