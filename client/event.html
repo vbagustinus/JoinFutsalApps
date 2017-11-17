@@ -36,7 +36,7 @@
         background-color: #fff!important;
       }
     </style>
-  
+
     <!-- facebook login -->
     <script src="../assets/js/client.js"></script>
       <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -73,7 +73,6 @@
           <li>
 
             <button id="loginButtonDiv" onclick="outFb()" class="btn btn-danger btn-fill">Logout</button>
-            <button id="loginButtonDiv" onclick="FBLogin()" class="btn btn-danger btn-fill">Login</button>
           </li>
        </ul>
     </div><!-- /.navbar-collapse -->
@@ -219,7 +218,7 @@
 <script>
 $( document ).ready(function() {
     $.get("http://localhost:3000/events", function(data, status) {
-
+      console.log('=>>>>>>>',data);
       if(status === 'success') {
         data.forEach(dataEvent => {
           $("#newEvent").append(`
@@ -232,7 +231,7 @@ $( document ).ready(function() {
             <label>Member Event</label>
             <div id="member"></div>
             <button onclick="joinEvent('${dataEvent._id}')">Join</button>
-            `) 
+            `)
         })
 
         data.forEach(dataEvent => {
@@ -242,7 +241,7 @@ $( document ).ready(function() {
             <p>${member.name}</p>
             <br/>
             `)
-         }) 
+         })
         })
       }
     })

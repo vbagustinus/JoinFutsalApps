@@ -12,7 +12,9 @@ const setAccessToken = (req, res, next) => {
 }
 const findAll = (req, res) => {
   Event.find().populate(['creator', 'member'])
-  .then(events => res.send(events))
+  .then(events => {
+    console.log(events);
+    res.send(events)})
   .catch(err => res.status(500).send(err))
 }
 
